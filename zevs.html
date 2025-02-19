@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зевс мүсіні және Жеті керемет</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --bg-color: #1a1f2b;
+            --text-color: #e4e6eb;
+            --container-bg: #2c3241;
+            --header-bg: rgba(26, 31, 43, 0.95);
+            --accent-color: #64b5f6;
+            --section-bg: rgba(44, 50, 65, 0.95);
+            --quote-bg: #373e4f;
+        }
+
+        .light-theme {
+            --bg-color: #f0f2f5;
+            --text-color: #1a1f2b;
+            --container-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --accent-color: #1976d2;
+            --section-bg: rgba(255, 255, 255, 0.95);
+            --quote-bg: #e3f2fd;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding-top: 70px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quote-container {
+            background: var(--quote-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .quote-author {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .content-section {
+            background: var(--section-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: var(--accent-color);
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .photo-placeholder {
+            background: var(--quote-bg);
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-placeholder.show {
+            opacity: 1;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .timeline-item {
+            background: var(--section-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .education-section {
+            background: var(--section-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .works-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .works-list li {
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--quote-bg);
+            border-radius: 8px;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .impact-card {
+            background: var(--quote-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 20px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quote {
+                font-size: 1.2em;
+            }
+
+            .photo-placeholder {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">Зевс мүсіні және Жеті керемет</div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-section">
+            <div class="quote-container animate__animated animate__fadeIn">
+                <p class="quote">"Адам қиялынан асып түсейік, өйткені біз кереметтердің жаратушысымыз."</p>
+                <p class="quote-author">- Фидий, Зевс мүсінінің мүсіншісі</p>
+            </div>
+        </section>
+
+        <div class="content-grid">
+            <div class="content-section animate__animated animate__fadeInLeft">
+                <h2 class="section-title">Зевс мүсіні</h2>
+                <p>Олимпиядағы Зевс мүсіні шамамен б.з.д. 435 жылы грек мүсіншісі Фидий жасаған, Грекиядағы Олимпия ғибадатханасында орналасқан шамамен 13 метр (43 фут) биіктіктегі алып отырған фигура болды. Мүсін Грекиядағы ең беделді көркем туынды және Ежелгі әлемнің жеті кереметінің бірі болды.</p>
+                <div class="photo-grid">
+                    <div class="photo-placeholder" style="background: url('https://img.tourister.ru/files/2/4/0/5/7/1/1/8/original.jpg') no-repeat center/cover;"></div>
+                    <div class="photo-placeholder" style="background: url('https://avatars.mds.yandex.net/i?id=7732dbd7312c8905eadd2d31e88144d3_l-5235114-images-thumbs&n=13') no-repeat center/cover;"></div>
+                </div>
+            </div>
+
+            <div class="content-section animate__animated animate__fadeInRight">
+                <h2 class="section-title">Құрылысы және материалдары</h2>
+                <p>Мүсін ағаш негізге орнатылған пілсүйек тақталары мен алтын панельдерінен жасалған. Ол Зевс құдайын қарағай ағашынан жасалған, күл ағашы, пілсүйек, алтын және асыл тастармен әшекейленген тақта отырғанын бейнеледі. Оң қолында Зевс Нике (жеңіс құдайы) мүсінін, ал сол қолында бүркіт бейнеленген скипетрді ұстап тұрды.</p>
+            </div>
+        </div>
+
+        <section class="education-section animate__animated animate__fadeIn">
+            <h2 class="section-title">Ежелгі әлемнің жеті кереметі</h2>
+            <p>Ежелгі әлемнің жеті кереметі - әртүрлі эллиндік жазушылар тізімдеген керемет құрылыстар жинағы:</p>
+            <ul>
+                <li>Гиза пирамидасы - бүгінгі күнге дейін сақталған жалғыз керемет</li>
+                <li>Вавилонның аспалы бақтары - кең ирригациялық жүйесімен танымал</li>
+                <li>Эфестегі Артемида храмы - грек құдайы Артемидаға арналған</li>
+                <li>Олимпиядағы Зевс мүсіні - грек өнері мен инженериясының шедеврі</li>
+                <li>Галикарнастағы Мавзолей - парсы сатрапы Мавсол үшін салынған қабір</li>
+                <li>Родос Колоссы - грек құдайы Гелиостың алып мүсіні</li>
+                <li>Александрия шамшырағы - ежелгі әлемдегі ең биік құрылыстардың бірі</li>
+            </ul>
+            <p>Бұл құрылымдар алып өлшемімен, ерекше шеберлігімен және адамзат жетістіктерінің шекарасын кеңейткен тапқыр инженерлік шешімдерімен танымал болды.</p>
+        </section>
+
+        <div class="quote-grid">
+            <div class="quote-container animate__animated animate__fadeIn">
+                <p class="quote">"Бұл кереметтерге қозғалмайтындар не ештеңеге таңданбайды, не әсерленуге құлықсыз."</p>
+                <p class="quote-author">- Сидондық Антипатр</p>
+            </div>
+            <div class="quote-container animate__animated animate__fadeIn">
+                <p class="quote">"Мен арбалар жүретін жол бар биік Вавилон қабырғасын, Алфей жанындағы Зевс мүсінін, аспалы бақтарды, Күн Колоссын, биік пирамидалардың алып еңбегін және Мавсолдың үлкен қабірін көрдім; бірақ мен бұлттарға көтерілген Артемида үйін көргенде, басқа кереметтер өз жарқындығын жоғалтты."</p>
+                <p class="quote-author">- Сидондық Антипатр</p>
+            </div>
+        </div>
+
+        <section class="timeline">
+            <h2 class="section-title">Зевс мүсінінің уақыт желісі</h2>
+            <div class="timeline-item animate__animated animate__fadeInUp">
+                <div class="timeline-date">б.з.д. 435 ж. шамасында</div>
+                <p>Мүсінші Фидийдің басшылығымен Зевс мүсінінің құрылысы басталды</p>
+            </div>
+            <div class="timeline-item animate__animated animate__fadeInUp">
+                <div class="timeline-date">б.з.д. 430 ж. шамасында</div>
+                <p>Олимпиядағы Зевс храмындағы мүсіннің аяқталуы</p>
+            </div>
+            <div class="timeline-item animate__animated animate__fadeInUp">
+                <div class="timeline-date">б.з. 40 ж. шамасында</div>
+                <p>Рим императоры Калигула мүсінді Римге көшіруге тырысады, бірақ сәтсіз аяқталады</p>
+            </div>
+            <div class="timeline-item animate__animated animate__fadeInUp">
+                <div class="timeline-date">б.з. 391-392 жж. шамасында</div>
+                <p>Император Феодосий I пұтқа табынушылықты тоқтатқаннан кейін Константинопольге көшірілуі мүмкін</p>
+            </div>
+            <div class="timeline-item animate__animated animate__fadeInUp">
+                <div class="timeline-date">б.з. 475 ж. шамасында</div>
+                <p>Константинопольдегі Лаусус сарайындағы өртте жойылған болуы мүмкін</p>
+            </div>
+        </section>
+
+        <section class="content-section animate__animated animate__fadeIn">
+            <h2 class="section-title">Зевс мүсінінің ерекшеліктері</h2>
+            <ul class="works-list">
+                <li>
+                    <strong>Тақ</strong>
+                    <p>Грек мифологиясындағы оқиғалармен әшекейленген, соның ішінде Геракл мен амазондар арасындағы шайқас және Ниобенің балалары туралы әңгіме.</p>
+                </li>
+                <li>
+                    <strong>Зевс бейнесі</strong>
+                    <p>Алтын шапан мен зәйтүн бұтақтарынан жасалған тәж киген түрінде бейнеленген. Денесі пілсүйектен, ал сақалы, шашы мен шапаны алтыннан жасалған.</p>
+                </li>
+                <li>
+                    <strong>Символдық элементтер</strong>
+                    <p>Зевс оң қолында Нике (Жеңіс) ұстап, ал сол қолында бүркіт отырған скипетр ұстаған, бұл құдайлар арасындағы үстемдікті білдіреді.</p>
+                </li>
+            </ul>
+        </section>
+
+        <div class="impact-grid">
+            <div class="impact-card animate__animated animate__fadeIn">
+                <h3 class="section-title">Діни маңызы</h3>
+                <p>Мүсін Зевстің құдіретті болмысын бейнелейді деп саналды және Олимпиада ойындарына қатысқан табынушылар мен спортшылар үшін зиярат орны болды.</p>
+            </div>
+            <div class="impact-card animate__animated animate__fadeIn">
+                <h3 class="section-title">Көркемдік жетістік</h3>
+                <p>Фидийдің шедеврі болып саналатын бұл мүсін хризелефантинді мүсін жасау техникасының биігін көрсетіп, ғасырлар бойы өнерге әсер етті.</p>
+            </div>
+            <div class="impact-card animate__animated animate__fadeIn">
+                <h3 class="section-title">Тарихи әсері</h3>
+                <p>Грек мәдени және көркемдік үстемдігінің символы болып, ежелгі әлемде саяхатшыларды, суретшілерді және тарихшыларды шабыттандырды.</p>
+            </div>
+        </div>
+
+        <section class="content-section animate__animated animate__fadeIn">
+            <h2 class="section-title">Ежелгі айғақтар</h2>
+            <p>Бірнеше ежелгі жазушылар мүсінді толық сипаттап берді:</p>
+            <ul>
+                <li>Павсаний өзінің «Грекияның сипаттамасы» еңбегінде жан-жақты сипаттама берді</li>
+                <li>Страбон өзінің «География» еңбегінде мүсін туралы айтқан</li>
+                <li>Квинтилиан оны Гомердің шығармаларымен салыстырып, «қабылданған дінге бірдеңе қосты» деді</li>
+                <li>Каллимах оның керемет сұлулығын мадақтайтын өлең шығарды</li>
+            </ul>
+            <div class="photo-grid">
+                <div class="photo-placeholder" style="background: url('https://i.pinimg.com/736x/10/e5/06/10e5064c372ea2fee4e2353342ca87c8.jpg') no-repeat center/cover;"></div>
+                <div class="photo-placeholder" style="background: url('https://kniganika.ru/images/detailed/79/3216dc51c50d635156a420aefb9aea0d_6248193377.jpg') no-repeat center/cover;"></div>
+            </div>
+        </section>
+
+        <div class="content-grid">
+            <div class="content-section animate__animated animate__fadeInLeft">
+                <h2 class="section-title">Неліктен олар керемет деп саналды</h2>
+                <p>Жеті керемет өз мәртебесін бірнеше факторлар арқылы алды: ерекше өлшем, революциялық сәулет техникасы, эстетикалық сұлулық, символдық маңызы және олардың құрылысына қажетті үлкен ресурстар. Олар адамзаттың тапқырлық пен амбиция арқылы табиғи шектеулерді жеңу қабілетін көрсетті.</p>
+                <div class="photo-grid">
+                    <div class="photo-placeholder" style="background: url('https://upload.wikimedia.org/wikipedia/commons/8/82/SevenWondersOfTheWorld.jpg') no-repeat center/cover;"></div>
+                    <div class="photo-placeholder" style="background: url('https://content.onliner.by/news/1100x5616/c7ee9558340cce1aa2df5cc8b30062ca.jpeg') no-repeat center/cover;"></div>
+                </div>
+            </div>
+
+            <div class="content-section animate__animated animate__fadeInRight">
+                <h2 class="section-title">Мұрасы және қазіргі түсініктер</h2>
+                <p>Жеті кереметтің әсері бүгінгі күнге дейін жалғасуда:</p>
+                <ul>
+                    <li>Қазіргі археологиялық жаңалықтар олардың құрылысы туралы жаңа түсінік береді</li>
+                    <li>Сандық қайта құрулар жоғалған кереметтерді көрнекі түрде көрсетуге мүмкіндік береді</li>
+                    <li>Олар бүкіл әлемдегі заманауи сәулет жетістіктеріне шабыт береді</li>
+                    <li>Әлемнің жаңа жеті кереметі сияқты заманауи кереметтер тізімдері жасалды</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-placeholder" style="background: url('https://vln2ykabww2byyypvkvwe8xi0suvyezz.cdn-freehost.com.ua/wp-content/uploads/2017/07/Olympia18-848x400.jpg') no-repeat center/cover;"></div>
+                    <div class="photo-placeholder" style="background: url('https://beltourizm.by/upload/iblock/191/19161885aea0253dc32b7bed3e2d3da9.jpeg') no-repeat center/cover;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-theme");
+            let button = document.querySelector(".theme-toggle");
+            button.textContent = document.body.classList.contains("light-theme") ? "🌞" : "🌙";
+        }
+
+        // Фотосуреттердің пайда болу анимациясы
+        function showPhotos() {
+            const placeholders = document.querySelectorAll('.photo-placeholder');
+            placeholders.forEach((placeholder, index) => {
+                setTimeout(() => {
+                    placeholder.classList.add('show');
+                }, 200 * index);
+            });
+        }
+
+        // Прокрутка кезіндегі анимация
+        function handleScroll() {
+            const elements = document.querySelectorAll('.animate__animated');
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const isVisible = rect.top <= window.innerHeight * 0.8;
+
+                if (isVisible) {
+                    element.style.visibility = 'visible';
+                    element.classList.add('animate__fadeIn');
+                }
+            });
+        }
+
+        window.addEventListener('load', showPhotos);
+        window.addEventListener('scroll', handleScroll);
+
+        // Анимацияларды инициализациялау
+        document.querySelectorAll('.animate__animated').forEach(element => {
+            element.style.visibility = 'hidden';
+        });
+        handleScroll();
+    </script>
+</body>
+</html>
